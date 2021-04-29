@@ -28,9 +28,9 @@ async function start1() {
     }
 }
 
-app.get('/', (req, res) => {
-    res.send('Hello world');
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello world');
+// })
 
 start1();
 
