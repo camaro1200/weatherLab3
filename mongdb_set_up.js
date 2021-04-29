@@ -49,11 +49,12 @@ export async function getCities() {
         } else {
             result = [];
             cities.forEach((city) => {
-                result.push(city.name);
+                result.push(city.name.replace(/[^a-z]/gi, ''));
             });
         }
     });
     return result;
 }
 
+//https://expressjs.com/ru/guide/error-handling.html
 

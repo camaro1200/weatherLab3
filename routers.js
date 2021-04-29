@@ -14,6 +14,6 @@ router.post("/weather/addCity", addCityToDatabase);
 
 router.delete("/weather/delCity", removeCityFromDatabase);
 
-router.post("/weather/getCities", getCitiesFromDatabase);
+router.get("/weather/getCities", getCitiesFromDatabase);
 
 export default router

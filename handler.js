@@ -1,18 +1,20 @@
 import https from "https";
 import fetch from "node-fetch"
-
+import dotenv from "dotenv";
 import {getCities, addCity, removeCity} from './mongdb_set_up.js'
 
+dotenv.config();
+const api_url = process.env.API_URL
 
 export async function getJsonForCity(city) {
-    const api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f40dfba4f82e36fe59d1c2ebdea5ea12`
+    const api = `${api_url}&q=${city}`
     return await fetch(api).then((response) => {
         return response.json();
     })
 }
 
 export async function getJsonForCords(lat, long) {
-    const api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=f40dfba4f82e36fe59d1c2ebdea5ea12`
+    const api = `${api_url}&lat=${lat}&lon=${long}`
     return await fetch(api).then((response) => {
         {
             return response.json();
@@ -39,8 +41,8 @@ export async function getWeatherForCity(req, res) {
 
 export async function getWeatherForCords(req, res) {
     const lat = req.query.lat
-    const lon = req.query.lon
-    const weather_json = await getJsonForCords(lat, lon)
+    const long = req.query.long
+    const weather_json = await getJsonForCords(lat, long)
     console.log(weather_json)
 
     if(weather_json.cod == 200){
@@ -60,7 +62,7 @@ export async function addCityToDatabase(req, res) {
     //console.log(weather_json)
 
     if(weather_json.cod == 200){
-        //res.send(weather_json);
+        res.send(weather_json);
         console.log(weather_json.name)
         try {
             addCity(weather_json.name).then(() => {

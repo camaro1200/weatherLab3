@@ -1,13 +1,14 @@
-let mango_url = "mongodb+srv://manager:manager@cluster0.hv5da.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import routes from "./routers.js";
 import {addCity, getCities} from './mongdb_set_up.js';
 
+dotenv.config();
 const app = express();
-const PORT  = 3000
+const mango_url = process.env.MANGO_URL;
+const PORT  = 3000;
 
 app.use(cors());
 app.use(routes);
@@ -33,10 +34,6 @@ app.get('/', (req, res) => {
 
 start1();
 
-
-//addCity('moscow');
-//addCity('Stuttgart');
-//getCities().then(res => console.log(res));
 
 
 
